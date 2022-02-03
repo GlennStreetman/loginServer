@@ -1,0 +1,60 @@
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import type { NextApiRequest, NextApiResponse } from "next";
+import { PrismaClient } from "@prisma/client";
+import sha512 from "./../../functions/sha512";
+
+type reqData = {
+    email: string;
+    password: string;
+};
+
+interface thisRequest extends NextApiRequest {
+    body: reqData;
+}
+
+type resData = {
+    email?: string;
+    password?: string;
+    message: string;
+};
+
+type queryReturnData = {
+    email: string;
+    password: string;
+};
+
+type queryReturnList = queryReturnData[];
+
+export default async function handler(req: thisRequest, res: NextApiResponse<resData>) {
+    const prisma = new PrismaClient();
+    async function main() {
+        const getUserID: queryReturnList | null = await prisma.users.findMany({
+            where: {
+                email: req.body.email,
+                password: req.body.password,
+                // password: sha512(req.body.password),
+            },
+        });
+        console.log("userid", getUserID);
+        return getUserID;
+    }
+
+    const data = await main()
+        .catch((e) => {
+            throw e;
+        })
+        .finally(async () => {
+            await prisma.$disconnect();
+        });
+
+    if (data.length === 1) {
+        console.log("success");
+        res.status(200).json({
+            message: "login success",
+            ...data[0],
+        });
+    } else {
+        console.log("failed login", req.body.email);
+        res.status(401).json({ message: "Login failed" });
+    }
+}
