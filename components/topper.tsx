@@ -12,7 +12,11 @@ import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
 
 const DarkModeButton = dynamic(() => import("./darkModeButton"), { ssr: false });
 
-function Topper() {
+interface props {
+    callback?: Function;
+}
+
+function Topper(p: props) {
     const router = useRouter();
 
     return (
@@ -31,7 +35,7 @@ function Topper() {
                     )}
                 </Tippy>
             </Tippy> */}
-            <DarkModeButton />
+            <DarkModeButton secondary={p.callback} />
         </div>
     );
 }

@@ -1,0 +1,16 @@
+.imgBox {
+    @apply flex flex-row  h-[250px] w-full justify-center relative bg-primary;
+}
+
+.imgBox .visable {
+    opacity: 1;
+    -webkit-transition: 2.5s;
+
+    /* @apply ml-0 mr-0; */
+}
+
+.imgBox .hidden {
+    -webkit-transition: 2.5s;
+    pointer-events: none;
+    @apply opacity-0 absolute;
+}
