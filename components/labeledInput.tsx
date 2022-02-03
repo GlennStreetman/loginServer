@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface props {
     id: string;
@@ -10,7 +10,8 @@ interface props {
 }
 
 function LabeledInput(p: props) {
-    const [labelStyling, setLabelStyling] = useState("absolute text-accent bg-primary  rounded-lg");
+    const [labelStyling, setLabelStyling] = useState("absolute text-accent bg-primary ");
+    const helperStyleing = "absolute bottom-8 left-4 z-2 text-red-700 bg-primary";
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>, callback: Function) {
         e.preventDefault();
@@ -19,13 +20,13 @@ function LabeledInput(p: props) {
 
     function helperFocus(helperStyling: Function) {
         //on focus, move helper text to upper left side of input form, set zIndex to bring it above outline.
-        helperStyling("absolute bottom-8 left-4 z-2  text-accent bg-primary rounded-lg");
+        helperStyling("absolute bottom-8 left-4 z-2  text-accent bg-primary");
     }
 
     function helperBlurr(fieldValue: string, helperStyling: Function) {
         //on focus, move helper text to upper left side of input form, set zIndex to bring it above outline.
         if (fieldValue === "") {
-            helperStyling("absolute text-accent bg-primary p-1 rounded-lg");
+            helperStyling("absolute text-accent bg-primary p-1");
         }
     }
 
@@ -36,8 +37,7 @@ function LabeledInput(p: props) {
             onBlur={() => helperBlurr(p.value, setLabelStyling)}
         >
             <label
-                // htmlFor="thisComponent"
-                className={labelStyling}
+                className={p.helperText ? helperStyleing : labelStyling}
                 onClick={() => {
                     document.getElementById(p.id)?.focus();
                 }}
