@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <UserPrefs />
-            <div className="font-body pt-7 bg-primary">
+            <div className="font-body pt-7 bg-primary min-h-screen">
                 <Component {...pageProps} />
             </div>
         </>
