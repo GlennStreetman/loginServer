@@ -1,34 +1,52 @@
 {
-  "name": "login-service",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.36",
-    "@fortawesome/free-brands-svg-icons": "^5.15.4",
-    "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/react-fontawesome": "^0.1.17",
-    "@tailwindcss/aspect-ratio": "^0.4.0",
-    "@tippyjs/react": "^4.2.6",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-react": "^1.1.7",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "next": "12.0.9",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  },
-  "devDependencies": {
-    "@types/node": "17.0.13",
-    "@types/react": "17.0.38",
-    "autoprefixer": "^10.4.2",
-    "eslint": "8.8.0",
-    "eslint-config-next": "12.0.9",
-    "postcss": "^8.4.5",
-    "tailwindcss": "^3.0.18",
-    "typescript": "4.5.5"
-  }
+    "name": "login-service",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "dUp": "docker-compose -f app.yaml up",
+        "buildd": "docker-compose -f app.yaml up --build ",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.36",
+        "@fortawesome/free-brands-svg-icons": "^5.15.4",
+        "@fortawesome/free-solid-svg-icons": "^5.15.4",
+        "@fortawesome/react-fontawesome": "^0.1.17",
+        "@prisma/client": "^3.9.1",
+        "@tailwindcss/aspect-ratio": "^0.4.0",
+        "@tippyjs/react": "^4.2.6",
+        "crypto": "^1.0.1",
+        "dotenv": "^15.0.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-config-react": "^1.1.7",
+        "eslint-plugin-react-hooks": "^4.3.0",
+        "next": "12.0.9",
+        "pg": "^8.7.1",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "react-icons": "^4.3.1",
+        "prisma": "^3.9.1"
+    },
+    "devDependencies": {
+        "@types/node": "^17.0.13",
+        "@types/react": "17.0.38",
+        "autoprefixer": "^10.4.2",
+        "eslint": "8.8.0",
+        "eslint-config-next": "12.0.9",
+        "postcss": "^8.4.5",
+        "tailwindcss": "^3.0.18",
+        "ts-node": "^10.4.0",
+        "typescript": "^4.5.5"
+    },
+    "compilerOptions": {
+        "sourceMap": true,
+        "outDir": "dist",
+        "strict": true,
+        "lib": [
+            "esnext"
+        ],
+        "esModuleInterop": true
+    }
 }
