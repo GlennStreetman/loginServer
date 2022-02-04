@@ -3,17 +3,20 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 import sha512 from "./../../functions/sha512";
 
+interface thisRequest extends NextApiRequest {
+    body: reqData;
+}
+
 type reqData = {
     email: string;
     password: string;
-    password2: string;
 };
 
 type resData = {
     message: string;
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<resData>) {
+export default async function handler(req: thisRequest, res: NextApiResponse<resData>) {
     const prisma = new PrismaClient();
     async function main() {
         const getUserID: object | null = await prisma.users.findMany({
@@ -37,3 +40,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     console.log("---API REQUEST---", data[0]);
     res.status(200).json(data[0]);
 }
+
+//validate email
+//validate password
+//make sure account is not already registered
+
+//create password recovery route. (THIS WILL REQUIRE AN EMAIL SERVER)
