@@ -34,7 +34,7 @@ services:
             - ./next.config.js:/loginServer/next.config.js
             - ./next-env.d.ts:/loginServer/next-env.d.ts
             - ./functions:/loginServer/functions
-        command: npm run dev
+        command: bash -c 'npx prisma migrate deploy && npm run dev'
 volumes:
     postgres-data:
         driver: local
