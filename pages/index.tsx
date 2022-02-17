@@ -1,10 +1,7 @@
 import type { NextPage } from "next";
 import { useState, useEffect } from "react";
-import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import LoginHeader from "./../components/loginHeader";
-import { users } from "@prisma/client";
 
 interface user {
     email?: string;
