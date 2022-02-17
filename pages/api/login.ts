@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 import sha512 from "./../../functions/sha512";
+import { serialize, CookieSerializeOptions } from "cookie";
 
 type reqData = {
     email: string;
@@ -31,11 +32,9 @@ export default async function handler(req: thisRequest, res: NextApiResponse<res
         const getUserID: queryReturnList | null = await prisma.users.findMany({
             where: {
                 email: req.body.email,
-                password: req.body.password,
-                // password: sha512(req.body.password),
+                password: sha512(req.body.password),
             },
         });
-        console.log("userid", getUserID);
         return getUserID;
     }
 
@@ -47,14 +46,18 @@ export default async function handler(req: thisRequest, res: NextApiResponse<res
             await prisma.$disconnect();
         });
 
-    if (data.length === 1) {
-        console.log("success");
+    if (data && data.length === 1) {
+        res.setHeader(
+            "Set-Cookie",
+            serialize("test", "testString", {
+                secure: false,
+                sameSite: true,
+            })
+        );
         res.status(200).json({
             message: "login success",
-            ...data[0],
         });
     } else {
-        console.log("failed login", req.body.email);
-        res.status(401).json({ message: "Login failed" });
+        res.status(401).json({ message: "Failed login, check email and password." });
     }
 }
