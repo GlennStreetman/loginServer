@@ -32,17 +32,17 @@ function ActiveLogo() {
     useEffect(() => {
         if (typeof window !== "undefined" && localStorage) {
             if (localStorage.siteDarkMode == "true") {
-                console.log("setting dark");
+                // console.log("setting dark");
                 setDarkStyle(styles.visable);
             } else {
-                console.log("setting light");
+                // console.log("setting light");
                 setLightStyle(styles.visable);
             }
         }
     }, []);
 
     const toggleLights = (on: any, num: string) => {
-        console.log("setting visable", on, num);
+        // console.log("setting visable", on, num);
         const lightSwitches = {
             darkOff: setDarkStyle,
             darkOn: setDarkStyleOn,
@@ -51,7 +51,7 @@ function ActiveLogo() {
         };
 
         Object.entries(lightSwitches).forEach(([key, val]) => {
-            console.log(key, val);
+            // console.log(key, val);
             if (on === key) {
                 val(styles.visable);
             } else {
