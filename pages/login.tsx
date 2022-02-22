@@ -14,7 +14,9 @@ import { useSession } from "next-auth/react";
 Login.getInitialProps = async (context) => {
     //if already signed in redirect to homepage.
     const { req, res } = context;
+    // console.log('context', res)
     const session = await getSession({ req });
+    // console.log('session', session)
     const userEmail = session?.userEmail ? session.userEmail : undefined;
     if (session && res) {
         res.writeHead(302, {
@@ -28,6 +30,7 @@ Login.getInitialProps = async (context) => {
         providers: await getProviders(),
         csrfToken: await getCsrfToken(context), //email signin only
     };
+
 };
 
 interface props {

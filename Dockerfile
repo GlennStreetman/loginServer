@@ -4,4 +4,4 @@ WORKDIR /loginServer
 COPY package*.json ./
 COPY prisma/schema.prisma ./prisma/
 RUN npm ci
-EXPOSE 3000
+EXPOSE 3001

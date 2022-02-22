@@ -16,6 +16,11 @@ import SlackProvider from "next-auth/providers/slack";
 
 const prisma = new PrismaClient();
 
+const useSecureCookies = process.env.NEXTAUTH_URL.startsWith('https://')
+const cookiePrefix = useSecureCookies ? '__Secure-' : ''
+const hostName = new URL(process.env.NEXTAUTH_URL).hostname
+console.log('HOST NAME----------------', hostName)
+
 export default NextAuth({
     // https://next-auth.js.org/configuration/providers
     adapter: PrismaAdapter(prisma),
@@ -78,6 +83,7 @@ export default NextAuth({
     // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
     // a separate secret is defined explicitly for encrypting the JWT.
     secret: process.env.SECRET,
+    //https://github.com/nextauthjs/next-auth/issues/2414
 
     session: {
         // Use JSON Web Tokens for session instead of database sessions.
@@ -93,6 +99,20 @@ export default NextAuth({
         // Note: This option is ignored if using JSON Web Tokens
         updateAge: 24 * 60 * 60, // 24 hours
     },
+    cookies: {
+        sessionToken: 
+        {
+          name: `${cookiePrefix}next-auth.session-token`,
+          options: {
+            httpOnly: true,
+            sameSite: 'lax',
+            path: '/',
+            secure: useSecureCookies,
+            // domain: .gstreet.test 
+            domain: hostName == 'localhost' ? hostName : '.' + hostName // add a . in front so that subdomains are included
+          }
+        },
+      },
 
     // JSON Web tokens are only used for sessions if the `jwt: true` session
     // option is set - or by default if no database is specified.
@@ -109,6 +129,7 @@ export default NextAuth({
     // The routes shown here are the default URLs that will be used when a custom
     // pages is not specified for that route.
     // https://next-auth.js.org/configuration/pages
+    
     pages: {
         signIn: "/login", // Displays signin buttons
         // signOut: '/auth/signout', // Displays form with sign out button

@@ -6,7 +6,6 @@ import { serialize, CookieSerializeOptions } from "cookie";
 
 type reqData = {
     email: string;
-    password: string;
 };
 
 interface thisRequest extends NextApiRequest {
@@ -15,13 +14,11 @@ interface thisRequest extends NextApiRequest {
 
 type resData = {
     email?: string;
-    password?: string;
     message: string;
 };
 
 type queryReturnData = {
     email: string;
-    password: string;
 };
 
 type queryReturnList = queryReturnData[];
@@ -29,11 +26,11 @@ type queryReturnList = queryReturnData[];
 export default async function handler(req: thisRequest, res: NextApiResponse<resData>) {
     const prisma = new PrismaClient();
     async function main() {
-        const getUserID: queryReturnList | null = await prisma.users.findMany({
+        const getUserID: queryReturnList | null = await prisma.user.findMany({
             where: {
                 email: req.body.email,
-                password: sha512(req.body.password),
             },
+
         });
         return getUserID;
     }

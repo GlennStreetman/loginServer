@@ -2,6 +2,8 @@ import type { NextPage } from "next";
 import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import LoginHeader from "./../components/loginHeader";
+import Button from "../components/buttonStandard";
+import Link from "next/link";
 
 interface user {
     email?: string;
@@ -40,6 +42,14 @@ const Home: NextPage = () => {
                 <div>API SESSION STATUS</div>
                 <div>Session expires: {thisSession?.expires ? thisSession.expires : "Not Logged In"}</div>
                 {thisSession?.user ? mapUser(thisSession.user) : "No user"}
+
+                        <div>
+                            <Button onClick={() => {}}>
+                                <a href='http://blog.gstreet.test'>Blog</a>
+                            </Button>
+                        </div>
+
+                
             </main>
         </div>
     );
