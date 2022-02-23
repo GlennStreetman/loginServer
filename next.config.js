@@ -8,7 +8,7 @@ const nextConfig = {
         source: "/api/auth/:path*",
          // if the origin has '.my-domain.com'...
         has: [
-          { type: 'header', key: 'origin', value: '(?<origin>^http:\/\/.*\.gstreet\.test$)' }, //CHANGE TO HTTPS
+          { type: 'header', key: 'origin', value: '(?<origin>^https:\/\/.*\.gstreet\.test$)' }, //CHANGE TO HTTPS
         ],
         // these headers will be applied
         headers: [

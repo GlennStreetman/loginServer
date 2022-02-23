@@ -45,7 +45,7 @@ const Home: NextPage = () => {
 
                         <div>
                             <Button onClick={() => {}}>
-                                <a href='http://blog.gstreet.test'>Blog</a>
+                                <a href='https://blog.gstreet.test'>Blog</a>
                             </Button>
                         </div>
 
