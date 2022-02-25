@@ -49,7 +49,12 @@ const Home: NextPage = () => {
                             </Button>
                         </div>
 
-                
+                        <div>
+                            <Button onClick={() => {}}>
+                                <a href='https://finndash.gstreet.test'>Finndash</a>
+                            </Button>
+                        </div>
+
             </main>
         </div>
     );
