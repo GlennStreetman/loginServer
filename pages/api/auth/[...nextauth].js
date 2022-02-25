@@ -19,7 +19,6 @@ const prisma = new PrismaClient();
 const useSecureCookies = process.env.NEXTAUTH_URL.startsWith('https://')
 const cookiePrefix = useSecureCookies ? '__Secure-' : ''
 const hostName = new URL(process.env.NEXTAUTH_URL).hostname
-console.log('HOST NAME----------------', hostName, useSecureCookies)
 
 export default NextAuth({
     // https://next-auth.js.org/configuration/providers
