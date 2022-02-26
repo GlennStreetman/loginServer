@@ -1,37 +1,62 @@
-import Cors from 'cors'
+import { PrismaClient } from '@prisma/client'
 
-// Initializing the cors middleware
-const cors = Cors({
-    methods: ['GET', 'HEAD'],
-  })
+const prisma = new PrismaClient()
 
-// Helper method to wait for a middleware to execute before continuing
-// And to throw an error when an error happens in a middleware
-function runMiddleware(req, res, fn) {
-    return new Promise((resolve, reject) => {
-      fn(req, res, (result) => {
+const findEmail  = async function(cookieHeader){
+    
+    const userID = await prisma.session.findUnique({
+        where: {
+            sessionToken: cookieHeader['__Secure-next-auth.session-token']
+        },
+        select: {userId: true}
 
+        })
 
-        if (result instanceof Error) {
-            console.log('error processing cors')
-          return reject(result)
-        }
-        console.log('received CORS')
-        return resolve(result)
-      })
+    const thisID = userID?.['userId'] ? userID['userId'] : undefined
+    
+    if (thisID !== undefined ) {
+    const email = await prisma.user.findUnique({
+        where: {
+            id: thisID
+        },
+        select: {email: true}
+
     })
-  }
-  
+    console.log('email', email)
+    return email
+   } else {
+       return false
+   }
+}
 
 export default async function handler(req , res) {
-    console.log('request logged')
+    // console.log('request logged')
     if (req.method === 'GET') {
-        console.log('api request received remotelogin')
-        const loginStatus = await runMiddleware(req, res, cors)
+      //build headers from string.
+      const cookieHeader = req.headers.cookie.split(';').reduce((prev, cur)=>{
+          let [key, val] = cur.split('=')
+          key = key.trim()
+          cur = cur.trim()
+          prev[key] = val
+          return prev
+        }, {})
 
-        res.status(200).json({
-        message: 'test'
-    });
+        const loginStatus = await findEmail(cookieHeader)
+
+        if (loginStatus !== false) {
+            const email = loginStatus.email
+            const login = email !== undefined ? 1 : 0
+
+            res.status(200).json({
+            email: email,
+            login: login,
+            });
+        } else {
+            res.status(200).json({
+                login: '0',
+            });
+        }
 }
 
 }
+
