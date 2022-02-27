@@ -3,13 +3,17 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 const findEmail  = async function(cookieHeader){
+    console.log('cookie header', cookieHeader)
     
+    const secure = cookieHeader['__Secure-next-auth.session-token']
+    const insecure = cookieHeader['next-auth.session-token']
+    const loginToken = secure !== undefined ? secure : insecure
+
     const userID = await prisma.session.findUnique({
         where: {
-            sessionToken: cookieHeader['__Secure-next-auth.session-token']
+            sessionToken: loginToken
         },
         select: {userId: true}
-
         })
 
     const thisID = userID?.['userId'] ? userID['userId'] : undefined
