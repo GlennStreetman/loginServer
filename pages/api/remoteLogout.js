@@ -3,8 +3,6 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 const logout  = async function(cookieHeader){
-
-    console.log('logging out', cookieHeader)
     
     await prisma.session.deleteMany({
         where: {
@@ -12,13 +10,11 @@ const logout  = async function(cookieHeader){
         },
     })
 
-
     return true
 }
 
 export default async function handler(req , res) {
     try {
-    console.log('request remote loggout')
     if (req.method === 'GET') {
         //build headers from string.
         const cookieHeader = req.headers.cookie.split(';').reduce((prev, cur)=>{
