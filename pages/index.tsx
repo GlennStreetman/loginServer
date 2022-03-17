@@ -16,17 +16,33 @@ interface sessionInt {
     user?: user;
 }
 
-function mapUser(user) {
-    const userMap = Object.entries(user).map(([key, val]) => {
-        return <div key={key + "key"}>{`${key}: ${val}`}</div>;
-    });
-    return userMap;
-}
+//map user useful for debugging.
+
+// function mapUser(user) {
+//     const userMap = Object.entries(user).map(([key, val]) => {
+//         return <div key={key + "key"}>{`${key}: ${val}`}</div>;
+//     });
+//     return userMap;
+// }
 
 function setDarkStyle(){
     const mode = localStorage ? localStorage.siteDarkMode : false
     return mode
 }
+
+function checkRedirect(thisSession: sessionInt){
+    const cookieValues =  document.cookie.split(';').reduce((prev, curr)=>{
+        let [key, val] = curr.split('=')
+        prev[key.trim()] = val.trim()
+        return prev
+    }, {})
+    if (thisSession.expires && cookieValues['redirect'] !== undefined) {
+        document.cookie = `redirect=; Max-Age=0`
+        window.location.href = `https://${cookieValues['redirect']}.${process.env.NEXT_PUBLIC_baseDomain}`
+    }
+}
+
+
 
 const Home: NextPage = () => {
     const [thisSession, setThisSession] = useState<sessionInt>({});
@@ -41,6 +57,10 @@ const Home: NextPage = () => {
         getSessionObject();
         setDarkStyle()
     }, []);
+
+    useEffect(()=>{
+        checkRedirect(thisSession)
+    },[thisSession])
 
     return (
         <div className={styles.container}>

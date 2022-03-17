@@ -39,6 +39,17 @@ interface props {
     csrfToken: any;
 }
 
+function checkRedirect(){
+    console.log('checking redirect')
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const redirect = urlParams.get('redirect')
+    if (redirect) {
+        console.log('redirect')
+        document.cookie = `redirect=${redirect}; Max-Age=3600`
+    } else {console.log('no redirect')}
+}
+
 function Login(p: props) {
     const router = useRouter();
 
@@ -47,6 +58,7 @@ function Login(p: props) {
     const [emailHelp, setEmailHelp] = useState<boolean | string>(false);
 
     useEffect(() => {
+        checkRedirect()
         if (router.query.error === "OAuthAccountNotLinked") {
             setServerMessage(
                 'Associated login email already used with previous login provider. Use "Login with email" or select previously used login provider.'
