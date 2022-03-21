@@ -25,28 +25,26 @@ interface sessionInt {
 //     return userMap;
 // }
 
-function setDarkStyle(){
-    const mode = localStorage ? localStorage.siteDarkMode : false
-    return mode
+function setDarkStyle() {
+    const mode = localStorage ? localStorage.siteDarkMode : false;
+    return mode;
 }
 
-function checkRedirect(thisSession: sessionInt){
-    const cookieValues =  document.cookie.split(';').reduce((prev, curr)=>{
-        let [key, val] = curr.split('=')
-        prev[key.trim()] = val.trim()
-        return prev
-    }, {})
-    if (thisSession.expires && cookieValues['redirect'] !== undefined) {
-        document.cookie = `redirect=; Max-Age=0`
-        window.location.href = `https://${cookieValues['redirect']}.${process.env.NEXT_PUBLIC_baseDomain}`
+function checkRedirect(thisSession: sessionInt) {
+    const cookieValues = document.cookie.split(";").reduce((prev, curr) => {
+        let [key, val] = curr.split("=");
+        prev[key.trim()] = val ? val.trim() : "";
+        return prev;
+    }, {});
+    if (thisSession.expires && cookieValues["redirect"] !== undefined) {
+        document.cookie = `redirect=; Max-Age=0`;
+        window.location.href = `https://${cookieValues["redirect"]}.${process.env.NEXT_PUBLIC_baseDomain}`;
     }
 }
 
-
-
 const Home: NextPage = () => {
     const [thisSession, setThisSession] = useState<sessionInt>({});
-    const [darkMode] = useState(false)
+    const [darkMode] = useState(false);
 
     useEffect(() => {
         async function getSessionObject() {
@@ -55,12 +53,12 @@ const Home: NextPage = () => {
             setThisSession(sessionData);
         }
         getSessionObject();
-        setDarkStyle()
+        setDarkStyle();
     }, []);
 
-    useEffect(()=>{
-        checkRedirect(thisSession)
-    },[thisSession])
+    useEffect(() => {
+        checkRedirect(thisSession);
+    }, [thisSession]);
 
     return (
         <div className={styles.container}>
@@ -70,23 +68,26 @@ const Home: NextPage = () => {
                 <div>Session expires: {thisSession?.expires ? thisSession.expires : "Not Logged In"}</div>
                 {thisSession?.user ? mapUser(thisSession.user) : "No user"} */}
 
-                        <div>
-                            <Button onClick={() => {}}>
-                                <a href='https://blog.gstreet.test'>
-                                { darkMode === true ?
-                                    <Image id="darkOn" src="/gstreetDarkOn.png" alt="logo" height="250px" width="250px" /> :
-                                    <Image id="lightOn" src="/gstreetLightOn.png" alt="logo" height="250px" width="250px" />     
-                                }
-                                </a>
-                            </Button>
-                        </div>
+                <div>
+                    <Button onClick={() => {}}>
+                        <a href="https://blog.gstreet.test">
+                            {darkMode === true ? (
+                                <Image id="darkOn" src="/gstreetDarkOn.png" alt="logo" height="250px" width="250px" />
+                            ) : (
+                                <Image id="lightOn" src="/gstreetLightOn.png" alt="logo" height="250px" width="250px" />
+                            )}
+                        </a>
+                    </Button>
+                </div>
 
-                        <div>
-                            <Button onClick={() => {}}>
-                                <a href='https://finndash.gstreet.test'> <Image id="finnhubSplash" src="/splashLogo.png" alt="logo" height="250px" width="250px" />  </a>
-                            </Button>
-                        </div>
-
+                <div>
+                    <Button onClick={() => {}}>
+                        <a href="https://finndash.gstreet.test">
+                            {" "}
+                            <Image id="finnhubSplash" src="/splashLogo.png" alt="logo" height="250px" width="250px" />{" "}
+                        </a>
+                    </Button>
+                </div>
             </main>
         </div>
     );
