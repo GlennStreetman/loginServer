@@ -5,6 +5,8 @@
         "dev": "next dev -p 3001",
         "dUp": "docker-compose -f app.yaml up",
         "buildd": "docker-compose -f app.yaml up --build ",
+        "pUp": "docker-compose -f app.prod.yaml up",
+        "buildp": "docker-compose -f app.prod.yaml up --build ",
         "build": "next build",
         "start": "next start -p 3001",
         "lint": "next lint"
@@ -56,5 +58,8 @@
             "esnext"
         ],
         "esModuleInterop": true
+    },
+    "optionalDependencies": {
+        "fsevents": "^2.3.2"
     }
 }
