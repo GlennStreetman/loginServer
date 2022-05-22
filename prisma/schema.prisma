@@ -50,6 +50,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  roll          String @default("guest")
+  secret        String @default("default secret")
 }
 
 model VerificationToken {
