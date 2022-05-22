@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { getSession } from "next-auth/react";
 
-export default async (req, res) => {
+const getAdmin = async (req, res) => {
     const prisma = new PrismaClient()
     const session = await getSession({ req });
     // @ts-ignore
@@ -11,7 +11,6 @@ export default async (req, res) => {
                 email: session.user.email
             }
         });
-        // console.log("resumes", findResumes, "filters", filters);
         res.status(200).json({ secret: findSecret.secret });
     } else {
         console.log("not an admin");
@@ -19,3 +18,5 @@ export default async (req, res) => {
     }
     res.end();
 };
+
+export default getAdmin
