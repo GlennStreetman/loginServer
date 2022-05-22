@@ -148,14 +148,15 @@ export default NextAuth({
         //     return true;
         //     // return `/login?email=${user.email}`;
         // },
-        // async redirect({ url, baseUrl }) {
-        //     console.log("--redirect called--", url);
-        //     return baseUrl;
-        // },
-        // async session({ session, token, user }) {
-        //     console.log("--Session CALLED--", session, "--user--", user, "--token--", token);
-        //     return session;
-        // },
+        async redirect({ url, baseUrl }) {
+            // console.log("--redirect called--", url);
+            return baseUrl;
+        },
+        async session({ session, token, user }) {
+            // console.log("--Session CALLED--", session, "--user--", user, "--token--", token);
+            session.user.roll = user.roll;
+            return session;
+        },
         // async jwt({ token, user, account, profile, isNewUser }) {
         //     console.log("--JWT CALLED--", "--user--", user, "--account--", account, "--profile--", profile, "email", email, "creds", credentials);
         //     return token;
