@@ -9,7 +9,7 @@ services:
         ports:
             - 5433:5432
         volumes:
-            - postgres-data:/var/lib/postgresql/data
+            - loginDBVolume:/var/lib/postgresql/data
     adminer:
         image: adminer
         restart: always
@@ -38,5 +38,6 @@ services:
             - ./functions:/loginServer/functions
         command: bash -c 'npx prisma migrate deploy && npm run dev'
 volumes:
-    postgres-data:
-        driver: local
+    loginDBVolume:
+        external: true
+        
