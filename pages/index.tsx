@@ -70,7 +70,7 @@ const Home: NextPage = () => {
 
                 <div>
                     <Button onClick={() => {}}>
-                        <a href={`https://blog.gstreet${process.env.NEXT_PUBLIC_TOP}`}>
+                        <a href={`https://gstreet${process.env.NEXT_PUBLIC_TOP}`}>
                             {darkMode === true ? (
                                 <Image id="darkOn" src="/gstreetDarkOn.png" alt="logo" height="250px" width="250px" />
                             ) : (
