@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-    postgresdocker:
+    authdb:
         image: postgres
         restart: always
         environment:
@@ -40,3 +40,7 @@ services:
 volumes:
     loginDBVolume:
         external: true
+networks:
+    default:
+        external:
+            name: gstreet
