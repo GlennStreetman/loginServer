@@ -6,8 +6,6 @@ services:
         environment:
             POSTGRES_USER: "${pguser}"
             POSTGRES_PASSWORD: "${pgpassword}"
-        # expose:
-        #     - "5433"
         ports:
             - 5433:5432
         volumes:
@@ -19,19 +17,9 @@ services:
         ports:
             - 3001:3001
         volumes:
-            - ./components:/loginServer/components
-            - ./pages:/loginServer/pages
-            - ./public:/loginServer/public
-            - ./styles:/loginServer/styles
-            - ./.next:/loginServer/.next
-            - ./.env:/loginServer/.env
-            - ./prisma:/loginServer/prisma
-            - ./tailwind.config.js:/loginServer/tailwind.config.js
-            - ./postcss.config.js:/loginServer/postcss.config.js
-            - ./next.config.js:/loginServer/next.config.js
-            - ./next-env.d.ts:/loginServer/next-env.d.ts
-            - ./functions:/loginServer/functions
-        command: bash -c 'npx prisma migrate deploy && npm run dev'
+            - .:/loginServer
+        command: "bash -c 'npx npx prisma generate && npm run dev --reload'"
+        # command: bash -c 'npx prisma migrate deploy && npm run dev'
 volumes:
     loginDBVolume:
         external: true

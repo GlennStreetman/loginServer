@@ -3,11 +3,12 @@
     "private": true,
     "scripts": {
         "dev": "next dev -p 3001",
-        "dUp": "docker-compose -f app.yaml up",
-        "buildd": "docker-compose -f app.yaml up --build ",
-        "pUp": "docker-compose -f app.prod.yaml up",
-        "buildp": "docker-compose -f app.prod.yaml up --build ",
         "build": "next build",
+        "dUp": "docker-compose -f app.yaml up",
+        "pBuild": "eval `ssh-agent -s` && ssh-add ~/.ssh/localDev && sudo rm -rf .next && docker-compose -f app.build.yaml up --build",
+        "buildd": "docker-compose -f app.yaml up --build ",
+        "pUp": "docker-compose -f app.prod.yaml up --build",
+        "buildp": "docker-compose -f app.prod.yaml up --build ",
         "start": "next start -p 3001",
         "lint": "next lint"
     },

@@ -13,10 +13,12 @@ services:
         volumes:
             - loginDBVolume:/var/lib/postgresql/data
     loginserver:
-        image: ghcr.io/glennstreetman/login
+        build:
+            context: .
+            dockerfile: Dockerfile.build
         ports:
             - 3001:3001
-        command: "npm run start"
+        command: bash -c 'npx prisma migrate deploy && npm run start'
 volumes:
     loginDBVolume:
         external: true
