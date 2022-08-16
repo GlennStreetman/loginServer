@@ -11,6 +11,7 @@ services:
         volumes:
             - loginDBVolume:/var/lib/postgresql/data
     loginserver:
+        user: node
         build:
             context: .
             dockerfile: Dockerfile
@@ -18,7 +19,7 @@ services:
             - 3001:3001
         volumes:
             - .:/loginServer
-        command: "bash -c 'npx npx prisma generate && npm run dev --reload'"
+        command: "bash -c 'npx prisma generate && npm run dev --reload'"
         # command: bash -c 'npx prisma migrate deploy && npm run dev'
 volumes:
     loginDBVolume:
