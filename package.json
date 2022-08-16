@@ -6,10 +6,11 @@
         "build": "next build",
         "start": "next start -p 3001",
         "dUp": "cp test.env .env && docker-compose -f app.yaml up",
-        "pBuild": "cp prod.env .env && eval `ssh-agent -s` && ssh-add ~/.ssh/localDev && sudo rm -rf .next && docker-compose --env-file prod.env -f app.build.yaml up --build",
-        "pUp": "cp prod.env .env && docker-compose --env-file prod.env -f app.prod.yaml up --build",
+        "pBuild": "cp prod.env .env && sudo rm -rf .next && docker-compose -f app.build.yaml up --build",
+        "pUp": "cp prod.env .env && docker-compose --env-file prod.env -f app.prod.yaml up",
         "lint": "next lint",
-        "pushBuild": "docker ps | grep loginserver_loginserver | awk {'print $1'} | xargs -i docker commit {} login &&  docker tag login ghcr.io/glennstreetman/login:latest && docker push ghcr.io/glennstreetman/login:latest"
+        "pushBuild": "docker ps | grep loginserver_loginserver | awk {'print $1'} | xargs -i docker commit {} login &&  docker tag login ghcr.io/glennstreetman/login:latest && docker push ghcr.io/glennstreetman/login:latest",
+        "pull": "docker pull ghcr.io/glennstreetman/login:latest"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.36",
