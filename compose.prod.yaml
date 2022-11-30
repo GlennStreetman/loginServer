@@ -1,6 +1,8 @@
 version: "3.9"
 services:
     authdb:
+        env_file:
+            - prod.env
         image: postgres
         restart: always
         environment:
@@ -13,6 +15,8 @@ services:
         volumes:
             - loginDBVolume:/var/lib/postgresql/data
     loginserver:
+        env_file:
+            - prod.env
         image: ghcr.io/glennstreetman/login
         ports:
             - 3001:3001

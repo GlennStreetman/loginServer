@@ -1,26 +1,28 @@
 version: "3.9"
 services:
     authdb:
+        env_file:
+            - prod.env
         image: postgres
         restart: always
         environment:
             POSTGRES_USER: "${pguser}"
             POSTGRES_PASSWORD: "${pgpassword}"
+        expose:
+            - "5432"
         ports:
             - 5433:5432
         volumes:
             - loginDBVolume:/var/lib/postgresql/data
     loginserver:
-        user: node
+        env_file:
+            - prod.env
         build:
             context: .
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.build
         ports:
             - 3001:3001
-        volumes:
-            - .:/loginServer
-        command: "bash -c 'npx prisma generate && npm run dev --reload'"
-        # command: bash -c 'npx prisma migrate deploy && npm run dev'
+        command: bash -c 'npx prisma migrate deploy && npm run start'
 volumes:
     loginDBVolume:
         external: true

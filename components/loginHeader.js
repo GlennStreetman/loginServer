@@ -6,11 +6,13 @@ import styles from "./header.module.css";
 // The approach used in this component shows how to build a sign in and sign out
 // component that works on pages which support both client and server side
 // rendering, and avoids any flash incorrect content on initial page load.
+
+const baseURL = `${process.env.NEXT_PUBLIC_NEXTAUTH_HTTPS}://${process.env.NEXT_PUBLIC_baseDomain}/${process.env.NEXT_PUBLIC_ENTERYPOINT}`
+
 export default function Header() {
     const { data: session, status } = useSession();
     const loading = status === "loading";
     // console.log("header variables", session, status);
-
     return (
         <header>
             <noscript>
@@ -22,12 +24,13 @@ export default function Header() {
                         <>
                             <span className={styles.notSignedInText}>You are not signed in</span>
                             <a
-                                href={`/api/auth/signin`}
+                                href={`${baseURL}/login`}
                                 className={styles.buttonPrimary}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    signIn();
-                                }}
+                                // onClick={(e) => {
+                                    
+                                //     e.preventDefault();
+                                //     signIn();
+                                // }}
                             >
                                 Sign in
                             </a>
@@ -42,7 +45,7 @@ export default function Header() {
                                 <strong>{session.user.email || session.user.name}</strong>
                             </span>
                             <a
-                                href={`/api/auth/signout`}
+                                href={`${baseURL}/api/auth/signout`}
                                 className={styles.button}
                                 onClick={(e) => {
                                     e.preventDefault();
@@ -55,40 +58,6 @@ export default function Header() {
                     )}
                 </p>
             </div>
-            <nav>
-                <ul className={styles.navItems}>
-                    {/* <li className={styles.navItem}>
-                        <Link href="/">
-                            <a>Home</a>
-                        </Link>
-                    </li>
-                    <li className={styles.navItem}>
-                        <Link href="/client">
-                            <a>Client</a>
-                        </Link>
-                    </li>
-                    <li className={styles.navItem}>
-                        <Link href="/server">
-                            <a>Server</a>
-                        </Link>
-                    </li>
-                    <li className={styles.navItem}>
-                        <Link href="/protected">
-                            <a>Protected</a>
-                        </Link>
-                    </li>
-                    <li className={styles.navItem}>
-                        <Link href="/api-example">
-                            <a>API</a>
-                        </Link>
-                    </li>
-                    <li className={styles.navItem}>
-                        <Link href="/middleware-protected">
-                            <a>Middleware protected</a>
-                        </Link>
-                    </li> */}
-                </ul>
-            </nav>
         </header>
     );
 }

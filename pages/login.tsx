@@ -11,6 +11,8 @@ import { useRouter } from "next/router";
 import { PrismaClient } from "@prisma/client";
 import { useSession } from "next-auth/react";
 
+const basePath = process.env.NEXT_PUBLIC_ENTERYPOINT
+
 Login.getInitialProps = async (context) => {
     //if already signed in redirect to homepage.
     const { req, res } = context;
@@ -20,7 +22,7 @@ Login.getInitialProps = async (context) => {
     const userEmail = session?.userEmail ? session.userEmail : undefined;
     if (session && res) {
         res.writeHead(302, {
-            Location: "/",
+            Location: `/${basePath}`,
         });
         res.end();
         return;
@@ -42,9 +44,10 @@ function checkRedirect() {
     // console.log("checking redirect");
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const redirect = urlParams.get("redirect");
+    let redirect = urlParams.get("redirect");
+    redirect?.replaceAll('blog', '')
     if (redirect) {
-        // console.log("redirect");
+        console.log("my redirect", redirect);
         document.cookie = `redirect=${redirect}; Max-Age=3600`;
     } else {
         // console.log("no redirect");
@@ -73,7 +76,7 @@ function Login(p: props) {
         const checkEmail = emailIsValid(email);
         if (checkEmail) {
             setEmailHelp(false);
-            fetch("/api/auth/signin/email", {
+            fetch(`/${basePath}/api/auth/signin/email`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email: email, csrfToken: p.csrfToken }),

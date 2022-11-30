@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { SessionProvider } from "next-auth/react";
 
 function MyApp({ Component, pageProps }: AppProps) {
+
     useEffect(() => {
         if (localStorage.siteDarkMode === "true" || (!("siteDarkMode" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
             document.documentElement.classList.add("dark");
@@ -19,9 +20,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         }
     }, []);
 
+    // console.log('custom sesssion route:', `/${process.env.NEXT_PUBLIC_ENTERYPOINT}/api/auth`)
+
     return (
         <>
             <SessionProvider
+                basePath={`/${process.env.NEXT_PUBLIC_ENTERYPOINT}/api/auth`}
                 // Provider options are not required but can be useful in situations where
                 // you have a short session maxAge time. Shown here with default values.
                 // @ts-ignore
