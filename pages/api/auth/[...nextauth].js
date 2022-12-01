@@ -9,7 +9,7 @@ import { createTransport } from "nodemailer"
 
 const prisma = new PrismaClient();
 
-const useSecureCookies = process.env.NEXTAUTH_HTTPS === "true" ? true: false;
+const useSecureCookies = process.env.NEXT_PUBLIC_NEXTAUTH_HTTPS === "true" ? true: false;
 const cookiePrefix = useSecureCookies ? "__Secure-" : "";
 const hostName = new URL(process.env.NEXTAUTH_URL).hostname
 
