@@ -87,7 +87,7 @@ const Home: NextPage = () => {
 
                 <div>
                     <Button onClick={() => { }}>
-                        <a href={`http://gstreet/finndash/${process.env.NEXT_PUBLIC_TOP}/about`}>
+                        <a href={`http://finndash.gstreet/${process.env.NEXT_PUBLIC_TOP}/about`}>
                             {" "}
                             <Image id="finnhubSplash" src={`/${entryPoint}/splashLogo.png`} alt="logo" height="250px" width="250px" />{" "}
                         </a>
