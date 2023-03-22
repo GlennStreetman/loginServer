@@ -19,6 +19,7 @@ Login.getInitialProps = async (context) => {
     // console.log('context', res)
     const session = await getSession({ req });
     // console.log('session', session)
+    // @ts-ignore
     const userEmail = session?.userEmail ? session.userEmail : undefined;
     if (session && res) {
         res.writeHead(302, {
@@ -55,6 +56,9 @@ function checkRedirect() {
 }
 
 function Login(p: props) {
+
+    console.log('p', p)
+
     const router = useRouter();
 
     const [email, setEmail] = useState("");

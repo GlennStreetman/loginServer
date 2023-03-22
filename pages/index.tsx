@@ -77,9 +77,9 @@ const Home: NextPage = () => {
                     <Button onClick={() => { }}>
                         <a href={`http://gstreet${process.env.NEXT_PUBLIC_TOP}`}>
                             {darkMode === true ? (
-                                <Image id="darkOn" src="/login/gstreetDarkOn.png" alt="logo" height="250px" width="250px" />
+                                <Image id="darkOn" src="/login/gstreetDarkOn.png" alt="logo" height="250" width="250" />
                             ) : (
-                                <Image id="lightOn" src={`/${entryPoint}/gstreetLightOn.png`} alt="logo" height="250px" width="250px" />
+                                <Image id="lightOn" src={`/${entryPoint}/gstreetLightOn.png`} alt="logo" height="250" width="250" />
                             )}
                         </a>
                     </Button>
@@ -89,7 +89,7 @@ const Home: NextPage = () => {
                     <Button onClick={() => { }}>
                         <a href={`http://finndash.gstreet${process.env.NEXT_PUBLIC_TOP}/about`}>
                             {" "}
-                            <Image id="finnhubSplash" src={`/${entryPoint}/splashLogo.png`} alt="logo" height="250px" width="250px" />{" "}
+                            <Image id="finnhubSplash" src={`/${entryPoint}/splashLogo.png`} alt="logo" height="250" width="250" />{" "}
                         </a>
                     </Button>
                 </div>

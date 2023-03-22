@@ -20,7 +20,7 @@ services:
             context: .
             dockerfile: Dockerfile
         ports:
-            - 3001:3001
+            - 3000:3000
         volumes:
             - .:/loginServer
         command: "bash -c 'npx prisma generate && npm run dev --reload'"

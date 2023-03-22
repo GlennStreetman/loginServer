@@ -70,16 +70,16 @@ function ActiveLogo() {
                 <DarkModeButton secondary={darkModeCallback} />
             </div>
             <div className={darkStyle}>
-                <Image id="darkOff" src={`/${entryPoint}/gstreetDarkOff.png`} alt="logo" height="250px" width="250px" onClick={() => toggleLights("darkOn", "1")} />
+                <Image id="darkOff" src={`/${entryPoint}/gstreetDarkOff.png`} alt="logo" height="250" width="250" onClick={() => toggleLights("darkOn", "1")} />
             </div>
             <div className={darkStyleOn}>
-                <Image id="darkOn" src={`/${entryPoint}gstreetDarkOn.png`} alt="logo" height="250px" width="250px" onClick={() => toggleLights("darkOff", "2")} />
+                <Image id="darkOn" src={`/${entryPoint}gstreetDarkOn.png`} alt="logo" height="250" width="250" onClick={() => toggleLights("darkOff", "2")} />
             </div>
             <div className={lightStyle}>
-                <Image id="lightOff" src={`/${entryPoint}/gstreetLightOff.png`} alt="logo" height="250px" width="250px" onClick={() => toggleLights("lightOn", "3")} />
+                <Image id="lightOff" src={`/${entryPoint}/gstreetLightOff.png`} alt="logo" height="250" width="250" onClick={() => toggleLights("lightOn", "3")} />
             </div>
             <div className={lightStyleOn}>
-                <Image id="lightOn" src={`/${entryPoint}/gstreetLightOn.png`} alt="logo" height="250px" width="250px" onClick={() => toggleLights("lightOff", "4")} />
+                <Image id="lightOn" src={`/${entryPoint}/gstreetLightOn.png`} alt="logo" height="250" width="250" onClick={() => toggleLights("lightOff", "4")} />
             </div>
         </div>
     );
